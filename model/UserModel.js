@@ -8,3 +8,4 @@ const UserModel = {
        return rows[0];
    }
 };
+export default UserModel;
