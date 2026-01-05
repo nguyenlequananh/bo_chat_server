@@ -1,11 +1,11 @@
 import UserModel from '../model/UserModel.js';
 
 const UserService = {
-    login: async (username, password) => {
-        if (!username || !password) {
-            throw new Error('Username and password are required');
+    login: async (phone, password) => {
+        if (!phone || !password) {
+            throw new Error('Phone and password are required');
         }
-        const user = await UserModel.login(username, password);
+        const user = await UserModel.login(phone, password);
         return user;
     }   
 };
