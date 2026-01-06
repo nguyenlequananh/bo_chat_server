@@ -1,7 +1,7 @@
 import ConversationModel from '../model/ConversationModel.js';
 
 const ConversationService = {
-    login: async (userId) => {
+    getConversationsByUserId: async (userId) => {
         if (!userId) {
             throw new Error('User ID is required');
         }
