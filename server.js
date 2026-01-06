@@ -2,14 +2,19 @@ import express from 'express';
 const app = express();
 
 import UserRouter from './router/UserRouter.js';
-import UserModel from './model/UserModel.js';
+import TestModel from './model/ConversationModel.js';
+import ConversationRouter from './router/ConversationRouter.js';
+
 
 
 app.use(express.json());
 app.use('/api/users', UserRouter);
+app.use('/api/conversations', ConversationRouter);
 
-const users = await UserModel.getAllUsers();
-console.log('Danh sách người dùng:', users);
+
+const conversations = await TestModel.getConversationByUserId(1);
+console.log(conversations);
+
 app.listen(3000, () => {
     console.log('Server chạy tại http://localhost:3000');
 });
