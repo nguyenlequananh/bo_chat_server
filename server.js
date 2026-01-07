@@ -2,9 +2,10 @@ import express from 'express';
 const app = express();
 
 import UserRouter from './router/UserRouter.js';
-import TestModel from './model/FriendShipModel.js';
+import TestModel from './model/MessageModel.js';
 import ConversationRouter from './router/ConversationRouter.js';
 import FriendShipRouter from './router/FriendShipRouter.js';
+import MessageRouter from './router/MessageRouter.js';
 
 
 
@@ -12,9 +13,10 @@ app.use(express.json());
 app.use('/api/users', UserRouter);
 app.use('/api/friendship', FriendShipRouter);
 app.use('/api/conversations', ConversationRouter);
+app.use('/api/messages', MessageRouter);
 
 
-const test = await TestModel.getFriendsByUserId(1);
+const test = await TestModel.getMessagesByConversationId(1);
 console.log(test);
 
 app.listen(3000, () => {
