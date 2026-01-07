@@ -24,5 +24,5 @@ app.listen(3000, () => {
 });
 // https://github.com/nguyenlequananh/bo_chat_server
 // git add .
-// git commit -m "Cap nhat chuc nang tao tin nhan voi transaction"
+// git commit -m "Update message creation and conversation update logic"
 // git push origin main
