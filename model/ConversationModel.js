@@ -36,6 +36,10 @@ const ConversationModel = {
                                     ORDER BY
                                         updated_at DESC;`, [userId, userId, userId]);
         return rows;
+   },
+   updateLastMessage: async (connection, conversationId, messageId) => {
+        const [result] = await connection.query('UPDATE conversations SET last_message_id = ? WHERE conversation_id = ?', [messageId, conversationId]);
+        return result;
    }
 };
 export default ConversationModel;

@@ -1,5 +1,5 @@
 import ConversationModel from '../model/ConversationModel.js';
-
+import db from '../config/db.js';
 const ConversationService = {
     getConversationsByUserId: async (userId) => {
         if (!userId) {
@@ -7,7 +7,7 @@ const ConversationService = {
         }
         const conversations = await ConversationModel.getConversationByUserId(userId);
         return conversations;
-    }   
+    }
 };
 
 export default ConversationService;
