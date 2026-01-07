@@ -16,7 +16,7 @@ app.use('/api/conversations', ConversationRouter);
 app.use('/api/messages', MessageRouter);
 
 
-const test = await TestModel.getMessagesByConversationId(1);
+const test = await TestModel.createMessage(1, 2, 'Hello, this is a test message', 'text');
 console.log(test);
 
 app.listen(3000, () => {
@@ -24,5 +24,5 @@ app.listen(3000, () => {
 });
 // https://github.com/nguyenlequananh/bo_chat_server
 // git add .
-// git commit -m "Cap nhat toan bo du an tu root"
+// git commit -m "Cap nhat them chuc nang tao tin nhan moi"
 // git push origin main

@@ -18,6 +18,15 @@ const MessageModel = {
             [conversationId]
         );
         return rows;
-    } 
+    } ,
+    createMessage: async (conversationId, senderId, content, type) => {
+        const [result] = await db.query(
+            `INSERT INTO messages (conversation_id, sender_id, content, type, created_at)
+             VALUES (?, ?, ?, ?, NOW())`,   
+            [conversationId, senderId, content, type]
+        );
+        return result.insertId; // Trả về ID của tin nhắn mới tạo
+    }
+
 };
 export default MessageModel;
