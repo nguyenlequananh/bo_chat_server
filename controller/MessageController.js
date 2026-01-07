@@ -32,7 +32,7 @@ const MessageController = {
                 res.status(201).json({
                     success: true,
                     message: "Tạo tin nhắn thành công",
-                    data: { message }  // Trả về message mới tạo
+                    data:  message   // Trả về message mới tạo
                 }); 
             } else {
                 res.status(400).json({
