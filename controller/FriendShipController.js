@@ -24,7 +24,7 @@ const FriendShipController = {
         }
     },
     getFriendshipByKeyword: async (req, res) => {
-        const { userId, keyword } = req.params;
+        const { userId, keyword } = req.query;
         try {
             const friends = await FriendShipService.getFriendshipByKeyword(userId, keyword);
             if (friends && friends.length > 0) {
