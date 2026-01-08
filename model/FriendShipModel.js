@@ -12,6 +12,20 @@ const FriendShipModel = {
                                         )
                                         WHERE f.status = 'accepted'; -- Chỉ lấy những mối quan hệ đã đồng ý`, [userId, userId]);
        return rows;
-   }    
+   } ,
+      getFriendshipByKeyword: async (userId, keyword) => {
+       const likeKeyword = `%${keyword}%`;
+       const [rows] = await db.query(`SELECT u.* 
+                                        FROM users u
+                                        JOIN friendships f ON (
+                                            (f.requester_id = ? AND f.receiver_id = u.user_id)
+                                            OR
+                                            (f.receiver_id = ? AND f.requester_id = u.user_id)
+                                        )   
+                                        WHERE f.status = 'accepted'
+                                        AND (u.full_name LIKE ? OR u.phone LIKE ?);`, 
+                                        [userId, userId, likeKeyword, likeKeyword]);
+       return rows;
+   }
 };
 export default FriendShipModel;
