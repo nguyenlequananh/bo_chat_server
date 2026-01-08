@@ -17,7 +17,7 @@ const FriendShipService = {
             throw new Error('Keyword is required');
         }
         if(keyword.match(/^0[0-9]{9,10}$/)){
-            const friends = await UserModel.getUserByPhone(keyword);
+            const friends = await UserModel.getUserByPhone(userId, keyword);
             return friends ? [friends] : [];
         } else {
             const friends = await FriendShipModel.getFriendshipByKeyword(userId, keyword);

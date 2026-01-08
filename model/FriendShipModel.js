@@ -15,16 +15,42 @@ const FriendShipModel = {
    } ,
       getFriendshipByKeyword: async (userId, keyword) => {
        const likeKeyword = `%${keyword}%`;
-       const [rows] = await db.query(`SELECT u.* 
+       const [rows] = await db.query(`SELECT 
+                                           u.user_id,
+                                            u.phone,
+                                            u.full_name,
+                                            u.nickname,
+                                            u.avatar,
+                                            u.cover_image,
+                                            u.gender,
+                                            u.birthdate,
+                                            u.bio,
+                                            u.is_online,
+                                            u.last_active_at,
+                                            u.created_at,
+                                            -- LOGIC TÍNH TOÁN IS_STRANGER
+                                            CASE 
+                                                WHEN f.status = 'accepted' THEN 0  -- (false) Nếu đã kết bạn -> Không phải người lạ
+                                                ELSE 1                             -- (true)  Còn lại (NULL hoặc pending) -> Là người lạ
+                                            END AS isStranger
+                                            
                                         FROM users u
-                                        JOIN friendships f ON (
+
+                                        -- Sử dụng LEFT JOIN để giữ lại User ngay cả khi chưa kết bạn
+                                        LEFT JOIN friendships f ON (
                                             (f.requester_id = ? AND f.receiver_id = u.user_id)
-                                            OR
+                                            OR 
                                             (f.receiver_id = ? AND f.requester_id = u.user_id)
-                                        )   
-                                        WHERE f.status = 'accepted'
-                                        AND (u.full_name LIKE ? OR u.phone LIKE ?);`, 
-                                        [userId, userId, likeKeyword, likeKeyword]);
+                                        )
+
+                                        WHERE 
+                                            u.user_id != ? -- Loại bỏ chính bản thân mình ra khỏi kết quả
+                                            AND (
+                                                u.full_name LIKE CONCAT('%', ?, '%')  -- Tìm theo tên
+                                                OR 
+                                                u.phone LIKE CONCAT(?, '%')           -- Tìm theo SĐT (bắt đầu bằng...)
+                                            );`, 
+                                        [userId, userId, userId, likeKeyword, likeKeyword]);
        return rows;
    }
 };
