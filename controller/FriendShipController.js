@@ -31,22 +31,18 @@ const FriendShipController = {
                 // TRẢ VỀ CHUẨN WRAPPED RESPONSE
                 res.status(200).json({
                     success: true,
-                    message: "Tìm kiếm bạn bè thành công",
-                    data: friends  // Dữ liệu chính nằm ở đây
-                });
-            } else {
-                res.status(401).json({
-                    success: false,
-                    message: "Không tìm thấy bạn bè",
-                    data: null
+                    message: (friends && friends.length > 0) ? "Tìm kiếm thành công" : "Không tìm thấy kết quả phù hợp",
+                    data: friends || []  // Dữ liệu chính nằm ở đây
                 });
             }
-
         } catch (error) {
-            res.status(500).json({ message: error.message });
-        }   
+            res.status(500).json({
+                success: false,
+                message: "Lỗi Server: " + error.message,
+                data: null
+            });
+        }
     }
 };
 
 export default FriendShipController;
-              
